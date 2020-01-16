@@ -1,0 +1,33 @@
+version: '3'
+services: 
+    influxdb:
+        image: influxdb:latest
+        ports:
+            - "8083:8083"
+            - "8086:8086"
+            - "8090:8090"
+        env_file:
+            - 'influxdb/.env'
+        volumes:
+            - /srv/docker/influxdb/data:/var/lib/influxdb
+    grafana:
+        image: grafana/grafana:latest
+        ports:
+            - "3000:3000"
+        env_file:
+            - "grafana/.env"
+        user: "0"
+        links:
+            - influxdb
+        volumes: 
+            - /srv/docker/grafana/data2:/var/lib/grafana
+            - ./grafana/provisioning/:/etc/grafana/provisioning
+    telegraf:
+        image: telegraf:1.13-alpine
+        links:
+            - influxdb
+        volumes:
+            - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+        
+        
+        
