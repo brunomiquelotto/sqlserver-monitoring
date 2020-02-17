@@ -28,6 +28,3 @@ services:
             - influxdb
         volumes:
             - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
-        
-        
-        
