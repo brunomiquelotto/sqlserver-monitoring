@@ -9,7 +9,7 @@ services:
         env_file:
             - 'influxdb/.env'
         volumes:
-            - /srv/docker/influxdb/data:/var/lib/influxdb
+            - ./influxdb/data:/var/lib/influxdb
     grafana:
         image: grafana/grafana:latest
         ports:
@@ -20,7 +20,7 @@ services:
         links:
             - influxdb
         volumes: 
-            - /srv/docker/grafana/data2:/var/lib/grafana
+            - ./grafana/data:/var/lib/grafana
             - ./grafana/provisioning/:/etc/grafana/provisioning
     telegraf:
         image: telegraf:1.13-alpine
